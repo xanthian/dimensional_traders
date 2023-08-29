@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:netherrack"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "R": {
+      "item": "minecraft:cyan_carpet"
+    },
+    "T": {
+      "item": "minecraft:blackstone"
+    }
+  },
+  "pattern": [
+    " R ",
+    "ETE",
+    "BBB"
+  ],
+  "result": {
+    "item": "dimensional_traders:nether_trader_stall"
+  },
+  "show_notification": true
+}

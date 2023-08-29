@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:end_stone"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "R": {
+      "item": "minecraft:magenta_carpet"
+    },
+    "T": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "pattern": [
+    " R ",
+    "ETE",
+    "BBB"
+  ],
+  "result": {
+    "item": "dimensional_traders:end_trader_stall"
+  },
+  "show_notification": true
+}

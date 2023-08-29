@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,half=lower": {
+      "model": "dimensional_traders:block/end_trader_stall_bottom"
+    },
+    "facing=north,half=lower": {
+      "model": "dimensional_traders:block/end_trader_stall_bottom",
+      "y": 270
+    },
+    "facing=south,half=lower": {
+      "model": "dimensional_traders:block/end_trader_stall_bottom",
+      "y": 90
+    },
+    "facing=west,half=lower": {
+      "model": "dimensional_traders:block/end_trader_stall_bottom",
+      "y": 180
+    },
+    "facing=east,half=upper": {
+      "model": "dimensional_traders:block/end_trader_stall_top"
+    },
+    "facing=north,half=upper": {
+      "model": "dimensional_traders:block/end_trader_stall_top",
+      "y": 270
+    },
+    "facing=south,half=upper": {
+      "model": "dimensional_traders:block/end_trader_stall_top",
+      "y": 90
+    },
+    "facing=west,half=upper": {
+      "model": "dimensional_traders:block/end_trader_stall_top",
+      "y": 180
+    }
+  }
+}

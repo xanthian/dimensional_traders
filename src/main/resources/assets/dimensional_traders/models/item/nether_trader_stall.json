@@ -1,0 +1,38 @@
+{
+  "parent": "dimensional_traders:block/nether_trader_stall",
+  "gui_light": "front",
+  "display": {
+    "thirdperson_righthand": {
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [0, 180, 0],
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "firstperson_righthand": {
+      "rotation": [-10, -90, 0],
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "firstperson_lefthand": {
+      "rotation": [-10, 90, 0],
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "ground": {
+      "scale": [0.5, 0.5, 0.5]
+    },
+    "gui": {
+      "rotation": [16, -56, 0],
+      "translation": [0, -2.5, 0],
+      "scale": [0.5, 0.5, 0.6]
+    },
+    "head": {
+      "rotation": [0, 90, 0],
+      "translation": [0, 2.75, 0]
+    },
+    "fixed": {
+      "rotation": [-180, 90, -180],
+      "translation": [0, -2.5, -2.5],
+      "scale": [0.6, 0.6, 0.6]
+    }
+  }
+}
