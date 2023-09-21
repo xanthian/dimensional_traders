@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.VanillaRecipeProvider;
 import net.minecraft.item.ItemConvertible;
@@ -14,21 +14,19 @@ import net.minecraft.util.Identifier;
 
 import xanthian.dimensional_traders.block.ModBlocks;
 
-import java.util.function.Consumer;
-
 public class RecipeGenerator extends FabricRecipeProvider {
     public RecipeGenerator(FabricDataOutput output) {
         super(output);
     }
 
     @Override
-    public void generate(Consumer<RecipeJsonProvider> exporter) {
+    public void generate(RecipeExporter exporter) {
 
         offerTraderStationRecipe(exporter,ModBlocks.END_TRADER_STALL, Blocks.END_STONE, Blocks.OBSIDIAN, Blocks.MAGENTA_CARPET);
         offerTraderStationRecipe(exporter,ModBlocks.NETHER_TRADER_STALL, Blocks.NETHERRACK, Blocks.BLACKSTONE, Blocks.CYAN_CARPET);
     }
 
-        public static void offerTraderStationRecipe(Consumer<RecipeJsonProvider> exporter, ItemConvertible station, ItemConvertible baseblock, ItemConvertible topblock,ItemConvertible roof) {
+        public static void offerTraderStationRecipe(RecipeExporter exporter, ItemConvertible station, ItemConvertible baseblock, ItemConvertible topblock,ItemConvertible roof) {
             ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, station, 1)
                     .input('B', baseblock).input('T', topblock).input('R', roof).input('E', Items.EMERALD)
                     .pattern(" R ").pattern("ETE").pattern("BBB")
