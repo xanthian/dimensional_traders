@@ -1,20 +1,20 @@
 package xanthian.dimensional_traders.util;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.trading.MerchantOffer;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
-public class ModTradeOffers extends TradeOffers {
+public class ModTradeOffers  extends VillagerTrades {
 
     public static class SellPotionsFactory
-            implements Factory {
+            implements VillagerTrades.ItemListing {
         final Potion potion;
         final int merchantExperience;
         final int maxUses;
@@ -28,11 +28,10 @@ public class ModTradeOffers extends TradeOffers {
         }
 
         @Override
-        @Nullable
-        public TradeOffer create(Entity entity, Random random) {
+        public MerchantOffer getOffer(@NotNull Entity pTrader, @NotNull RandomSource pRandom) {
             ItemStack itemStack = new ItemStack(Items.POTION, 1);
-            PotionUtil.setPotion(itemStack, this.potion);
-            return new TradeOffer(new ItemStack(Items.EMERALD, 10), itemStack, this.maxUses, this.merchantExperience, this.priceMultiplier);
+            PotionUtils.setPotion(itemStack, this.potion);
+            return new MerchantOffer(new ItemStack(Items.EMERALD, 10), itemStack, this.maxUses, this.merchantExperience, this.priceMultiplier);
         }
     }
 }

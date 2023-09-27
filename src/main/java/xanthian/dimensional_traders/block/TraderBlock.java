@@ -1,95 +1,101 @@
 package xanthian.dimensional_traders.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LevelEvent;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Fluids;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class TraderBlock extends Block {
 
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-    public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
-
-    public TraderBlock(Settings settings) {
-        super(settings);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(HALF, DoubleBlockHalf.LOWER));
+    public TraderBlock(BlockBehaviour.Properties pProperties) {
+        super(pProperties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
     @Override
     @Nullable
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockPos blockPos = ctx.getBlockPos();
-        World world = ctx.getWorld();
-        if (blockPos.getY() < world.getTopY() - 1 && world.getBlockState(blockPos.up()).canReplace(ctx)) {
-            return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(HALF, DoubleBlockHalf.LOWER);
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        BlockPos blockPos = pContext.getClickedPos();
+        Level level = pContext.getLevel();
+        if (blockPos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockPos.above()).canBeReplaced(pContext)) {
+            return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(HALF, DoubleBlockHalf.LOWER);
         }
         return null;
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER), Block.NOTIFY_ALL);
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, LivingEntity pPlacer, @NotNull ItemStack pStack) {
+        pLevel.setBlock(pPos.above(), pState.setValue(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.down();
-        BlockState blockState = world.getBlockState(blockPos);
-        if (state.get(HALF) == DoubleBlockHalf.LOWER) {
-            return blockState.isSideSolidFullSquare(world, blockPos, Direction.UP);
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        BlockPos blockPos = pPos.below();
+        BlockState blockstate = pLevel.getBlockState(blockPos);
+        if (pState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            return blockstate.isFaceSturdy(pLevel, blockPos, Direction.UP);
         }
-        return blockState.isOf(this);
+        return blockstate.is(this);
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient && player.isCreative()) {
-            TraderBlock.onBreakInCreative(world, pos, state, player);
+    public void playerWillDestroy(Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, @NotNull Player pPlayer) {
+        if (!pLevel.isClientSide && pPlayer.isCreative()) {
+            TraderBlock.onBreakInCreative(pLevel, pPos, pState, pPlayer);
         }
-        super.onBreak(world, pos, state, player);
+        super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
-    protected static void onBreakInCreative(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    protected static void onBreakInCreative(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
         BlockPos blockPos;
         BlockState blockState;
-        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
-        if (doubleBlockHalf == DoubleBlockHalf.UPPER && (blockState = world.getBlockState(blockPos = pos.down())).isOf(state.getBlock()) && blockState.get(HALF) == DoubleBlockHalf.LOWER) {
-            BlockState blockState2 = blockState.getFluidState().isOf(Fluids.WATER) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
-            world.setBlockState(blockPos, blockState2, Block.NOTIFY_ALL | Block.SKIP_DROPS);
-            world.syncWorldEvent(player, WorldEvents.BLOCK_BROKEN, blockPos, Block.getRawIdFromState(blockState));
+        DoubleBlockHalf doubleBlockHalf = pState.getValue(HALF);
+        if (doubleBlockHalf == DoubleBlockHalf.UPPER && (blockState = pLevel.getBlockState(blockPos = pPos.below())).is(pState.getBlock()) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            BlockState blockState2 = blockState.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+            pLevel.setBlockAndUpdate(blockPos, blockState2);
+            pLevel.levelEvent(pPlayer, LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(blockState));
         }
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(FACING, HALF);
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
-        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP)) {
-            if (neighborState.isOf(this) && neighborState.get(HALF) != doubleBlockHalf) {
-                return state.with(FACING, neighborState.get(FACING));
+    public @NotNull BlockState updateShape(BlockState pState, Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
+        DoubleBlockHalf doubleBlockHalf = pState.getValue(HALF);
+        if (pFacing.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (pFacing == Direction.UP)) {
+            if (pFacingState.is(this) && pFacingState.getValue(HALF) != doubleBlockHalf) {
+                return pState.setValue(FACING, pFacingState.getValue(FACING));
             }
-            return Blocks.AIR.getDefaultState();
+            return Blocks.AIR.defaultBlockState();
         }
-        if (doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canPlaceAt(world, pos)) {
-            return Blocks.AIR.getDefaultState();
+        if (doubleBlockHalf == DoubleBlockHalf.LOWER && pFacing == Direction.DOWN && !pState.canSurvive(pLevel, pFacingPos)) {
+            return Blocks.AIR.defaultBlockState();
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
     }
 }
