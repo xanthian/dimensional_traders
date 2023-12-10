@@ -3,8 +3,6 @@ package xanthian.dimensional_traders.entity;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
-
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potions;
@@ -18,7 +16,6 @@ import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
-
 import xanthian.dimensional_traders.Initialise;
 import xanthian.dimensional_traders.block.ModBlocks;
 import xanthian.dimensional_traders.util.ModTradeOffers;
@@ -330,7 +327,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new ModTradeOffers.SellPotionsFactory(
-                            Potions.STRONG_HEALING, 5,4,0.02f).create(entity, random)));
+                            Potions.STRONG_HEALING, 5, 4, 0.02f).create(entity, random)));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 2,
                 factories -> {
@@ -385,10 +382,10 @@ public class ModVillagers {
 
         // Expert
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 4, factories -> {
-                    factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
-                            Items.DIAMOND_SWORD, 40, 1, 28, 0.2F).create(entity, random)
-                    ));
-                });
+            factories.add(((entity, random) -> new TradeOffers.SellEnchantedToolFactory(
+                    Items.DIAMOND_SWORD, 40, 1, 28, 0.2F).create(entity, random)
+            ));
+        });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(

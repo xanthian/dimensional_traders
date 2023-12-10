@@ -2,10 +2,9 @@ package xanthian.dimensional_traders.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-
 import xanthian.dimensional_traders.block.ModBlocks;
 
-public class LangGenerator  extends FabricLanguageProvider {
+public class LangGenerator extends FabricLanguageProvider {
     public LangGenerator(FabricDataOutput dataOutput) {
         super(dataOutput);
     }

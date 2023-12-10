@@ -1,6 +1,9 @@
 package xanthian.dimensional_traders.block;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,19 +16,44 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
-
 import org.jetbrains.annotations.Nullable;
 
 public class TraderBlock extends Block {
 
-
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
+    public static final VoxelShape UPPER_SHAPE;
+    public static final VoxelShape LOWER_SHAPE;
+    public static final VoxelShape BASE_SHAPE;
+    public static final VoxelShape COLLISION_SHAPE;
+    public static final VoxelShape COLLISION_SHAPE_TOP;
+
+    static {
+
+        UPPER_SHAPE = Block.createCuboidShape(1, 0, 1, 15, 5, 14);
+        LOWER_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 16, 16);
+        BASE_SHAPE = VoxelShapes.union(UPPER_SHAPE, LOWER_SHAPE);
+        COLLISION_SHAPE_TOP = Block.createCuboidShape(0.0, 0, 0.0, 16.0, 14.0, 16.0);
+        COLLISION_SHAPE = VoxelShapes.union(BASE_SHAPE, COLLISION_SHAPE_TOP);
+    }
 
     public TraderBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(HALF, DoubleBlockHalf.LOWER));
+    }
+
+    protected static void onBreakInCreative(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        BlockPos blockPos;
+        BlockState blockState;
+        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
+        if (doubleBlockHalf == DoubleBlockHalf.UPPER && (blockState = world.getBlockState(blockPos = pos.down())).isOf(state.getBlock()) && blockState.get(HALF) == DoubleBlockHalf.LOWER) {
+            BlockState blockState2 = blockState.getFluidState().isOf(Fluids.WATER) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
+            world.setBlockState(blockPos, blockState2, Block.NOTIFY_ALL | Block.SKIP_DROPS);
+            world.syncWorldEvent(player, WorldEvents.BLOCK_BROKEN, blockPos, Block.getRawIdFromState(blockState));
+        }
     }
 
     @Override
@@ -46,12 +74,12 @@ public class TraderBlock extends Block {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.down();
-        BlockState blockState = world.getBlockState(blockPos);
-        if (state.get(HALF) == DoubleBlockHalf.LOWER) {
-            return blockState.isSideSolidFullSquare(world, blockPos, Direction.UP);
-        }
-        return blockState.isOf(this);
+        return world.getBlockState(pos.down()).isSolid();
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return COLLISION_SHAPE;
     }
 
     @Override
@@ -62,20 +90,14 @@ public class TraderBlock extends Block {
         super.onBreak(world, pos, state, player);
     }
 
-    protected static void onBreakInCreative(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        BlockPos blockPos;
-        BlockState blockState;
-        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
-        if (doubleBlockHalf == DoubleBlockHalf.UPPER && (blockState = world.getBlockState(blockPos = pos.down())).isOf(state.getBlock()) && blockState.get(HALF) == DoubleBlockHalf.LOWER) {
-            BlockState blockState2 = blockState.getFluidState().isOf(Fluids.WATER) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
-            world.setBlockState(blockPos, blockState2, Block.NOTIFY_ALL | Block.SKIP_DROPS);
-            world.syncWorldEvent(player, WorldEvents.BLOCK_BROKEN, blockPos, Block.getRawIdFromState(blockState));
-        }
-    }
-
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING, HALF);
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return state.get(HALF) == DoubleBlockHalf.UPPER ? UPPER_SHAPE : LOWER_SHAPE;
     }
 
     @Override

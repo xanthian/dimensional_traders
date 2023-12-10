@@ -8,7 +8,6 @@ import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
-
 import org.jetbrains.annotations.Nullable;
 
 public class ModTradeOffers extends TradeOffers {

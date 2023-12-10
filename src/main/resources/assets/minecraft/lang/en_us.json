@@ -1,7 +1,6 @@
 {
   "entity.minecraft.villager.dimensional_traders.nether_trader": "Nether Trader",
   "entity.minecraft.villager.nether_trader": "Nether Trader",
-
   "entity.minecraft.villager.dimensional_traders.end_trader": "End Trader",
   "entity.minecraft.villager.end_trader": "End Trader"
 }
