@@ -1,0 +1,76 @@
+{
+	"textures": {
+		"0": "twilightforest:block/nagastone_bare",
+		"2": "block/lime_wool",
+		"particle": "twilightforest:block/nagastone_bare"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [1, 0, 1],
+			"to": [15, 15, 15],
+			"faces": {
+				"north": {"uv": [1, 1, 15, 16], "texture": "#0"},
+				"east": {"uv": [1, 1, 15, 16], "texture": "#0"},
+				"south": {"uv": [1, 1, 15, 16], "texture": "#0"},
+				"west": {"uv": [1, 1, 15, 16], "texture": "#0"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#0", "cullface": "down"}
+			}
+		},
+		{
+			"name": "topright",
+			"from": [0, 15, 0],
+			"to": [16, 16, 5],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#0", "cullface": "north"},
+				"east": {"uv": [11, 0, 16, 1], "texture": "#0", "cullface": "east"},
+				"south": {"uv": [0, 15, 16, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 5, 1], "texture": "#0", "cullface": "west"},
+				"up": {"uv": [16, 16, 11, 0], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [16, 0, 11, 16], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 15, 5],
+			"to": [2, 16, 11],
+			"faces": {
+				"west": {"uv": [5, 0, 11, 1], "texture": "#0", "cullface": "west"},
+				"up": {"uv": [11, 0, 5, 2], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [1, 4, 0, 11], "texture": "#0"}
+			}
+		},
+		{
+			"name": "topmiddle",
+			"from": [2, 15, 5],
+			"to": [16, 16, 11],
+			"faces": {
+				"east": {"uv": [4, 15, 10, 16], "texture": "#2", "cullface": "east"},
+				"up": {"uv": [4, 2, 10, 16], "rotation": 90, "texture": "#2"}
+			}
+		},
+		{
+			"name": "topleft",
+			"from": [0, 15, 11],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#0"},
+				"east": {"uv": [0, 0, 5, 1], "texture": "#0", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#0", "cullface": "south"},
+				"west": {"uv": [11, 0, 16, 1], "texture": "#0", "cullface": "west"},
+				"up": {"uv": [5, 16, 0, 0], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [5, 0, 0, 16], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "drape",
+			"from": [15, 3, 5],
+			"to": [16, 15, 11],
+			"faces": {
+				"north": {"uv": [15, 0, 16, 8], "texture": "#2"},
+				"east": {"uv": [5, 1, 11, 13], "texture": "#2"},
+				"south": {"uv": [0, 0, 1, 8], "texture": "#2"},
+				"down": {"uv": [6, 9, 7, 15], "texture": "#2"}
+			}
+		}
+	]
+}

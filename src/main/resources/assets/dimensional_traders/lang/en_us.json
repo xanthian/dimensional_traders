@@ -1,4 +1,5 @@
 {
   "block.dimensional_traders.end_trader_stall": "End Trading Stall",
-  "block.dimensional_traders.nether_trader_stall": "Nether Trading Stall"
+  "block.dimensional_traders.nether_trader_stall": "Nether Trading Stall",
+  "block.dimensional_traders.twilight_forest_trader_stall": "Twilight Forest Trading Stall"
 }

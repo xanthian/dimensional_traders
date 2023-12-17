@@ -6,6 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -20,7 +21,9 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluids;
-
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,10 +31,35 @@ public class TraderBlock extends Block {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    public static final VoxelShape UPPER_SHAPE;
+    public static final VoxelShape LOWER_SHAPE;
+    public static final VoxelShape BASE_SHAPE;
+    public static final VoxelShape COLLISION_SHAPE;
+    public static final VoxelShape COLLISION_SHAPE_TOP;
+
+    static {
+
+        UPPER_SHAPE = Block.box(0, 0, 0, 16, 5, 16);
+        LOWER_SHAPE = Block.box(0, 0, 0, 16, 16, 16);
+        BASE_SHAPE = Shapes.or(UPPER_SHAPE, LOWER_SHAPE);
+        COLLISION_SHAPE_TOP = Block.box(0.0, 0, 0.0, 16.0, 14.0, 16.0);
+        COLLISION_SHAPE = Shapes.or(BASE_SHAPE, COLLISION_SHAPE_TOP);
+    }
 
     public TraderBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HALF, DoubleBlockHalf.LOWER));
+    }
+
+    protected static void onBreakInCreative(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
+        BlockPos blockPos;
+        BlockState blockState;
+        DoubleBlockHalf doubleBlockHalf = pState.getValue(HALF);
+        if (doubleBlockHalf == DoubleBlockHalf.UPPER && (blockState = pLevel.getBlockState(blockPos = pPos.below())).is(pState.getBlock()) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            BlockState blockState2 = blockState.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+            pLevel.setBlockAndUpdate(blockPos, blockState2);
+            pLevel.levelEvent(pPlayer, LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(blockState));
+        }
     }
 
     @Override
@@ -43,6 +71,11 @@ public class TraderBlock extends Block {
             return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(HALF, DoubleBlockHalf.LOWER);
         }
         return null;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return pState.getValue(HALF) == DoubleBlockHalf.UPPER ? UPPER_SHAPE : LOWER_SHAPE;
     }
 
     @Override
@@ -68,15 +101,9 @@ public class TraderBlock extends Block {
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
-    protected static void onBreakInCreative(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-        BlockPos blockPos;
-        BlockState blockState;
-        DoubleBlockHalf doubleBlockHalf = pState.getValue(HALF);
-        if (doubleBlockHalf == DoubleBlockHalf.UPPER && (blockState = pLevel.getBlockState(blockPos = pPos.below())).is(pState.getBlock()) && blockState.getValue(HALF) == DoubleBlockHalf.LOWER) {
-            BlockState blockState2 = blockState.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
-            pLevel.setBlockAndUpdate(blockPos, blockState2);
-            pLevel.levelEvent(pPlayer, LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(blockState));
-        }
+    @Override
+    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return COLLISION_SHAPE;
     }
 
     @Override

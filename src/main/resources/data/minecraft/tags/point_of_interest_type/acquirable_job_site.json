@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "dimensional_traders:end_trader_stall",
-    "dimensional_traders:nether_trader_stall"
+    "dimensional_traders:nether_trader_stall",
+    {
+      "id":
+      "dimensional_traders:twilight_forest_trader_stall",
+      "required": false
+    }
   ]
 }

@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
     }
 }
 
@@ -94,7 +95,12 @@ minecraft {
 }
 
 repositories {
-
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
 def replaceProperties = [
@@ -110,10 +116,12 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation fg.deobf("curse.maven:the-twilight-forest-227639:4865711")
+    runtimeOnly fg.deobf("curse.maven:emi-580555:4923777")
 }
 
 mixin {
-    add sourceSets.main, 'rfdeepslateminer.mixins.json'
+
 }
 
 processResources {

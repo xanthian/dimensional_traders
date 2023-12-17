@@ -8,10 +8,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.trading.MerchantOffer;
-
 import org.jetbrains.annotations.NotNull;
 
-public class ModTradeOffers  extends VillagerTrades {
+public class ModTradeOffers extends VillagerTrades {
 
     public static class SellPotionsFactory
             implements VillagerTrades.ItemListing {

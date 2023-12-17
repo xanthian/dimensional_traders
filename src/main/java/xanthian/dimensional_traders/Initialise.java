@@ -6,12 +6,15 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
 import xanthian.dimensional_traders.block.ModBlocks;
+import xanthian.dimensional_traders.compat.TwilightForestBlocks;
+import xanthian.dimensional_traders.compat.TwilightForestItems;
+import xanthian.dimensional_traders.compat.TwilightForestVillager;
 import xanthian.dimensional_traders.entity.ModVillagers;
 import xanthian.dimensional_traders.item.ModItems;
 
@@ -33,6 +36,14 @@ public class Initialise {
         ModVillagers.VILLAGER_PROFESSIONS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        if (ModList.get().isLoaded("twilightforest")) {
+            TwilightForestBlocks.BLOCKS.register(modEventBus);
+            TwilightForestItems.ITEMS.register(modEventBus);
+            TwilightForestVillager.POI_TYPES.register(modEventBus);
+            TwilightForestVillager.VILLAGER_PROFESSIONS.register(modEventBus);
+
+        }
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -50,11 +61,9 @@ public class Initialise {
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
+    public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
+        public static void onClientSetup(FMLClientSetupEvent event) {
         }
     }
 }

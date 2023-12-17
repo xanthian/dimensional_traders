@@ -3,5 +3,8 @@
   "entity.minecraft.villager.nether_trader": "Nether Trader",
 
   "entity.minecraft.villager.dimensional_traders.end_trader": "End Trader",
-  "entity.minecraft.villager.end_trader": "End Trader"
+  "entity.minecraft.villager.end_trader": "End Trader",
+
+  "entity.minecraft.villager.dimensional_traders.twilight_forest_trader": "Twilight Forest Trader",
+  "entity.minecraft.villager.twilight_forest_trader": "Twilight Forest Trader"
 }

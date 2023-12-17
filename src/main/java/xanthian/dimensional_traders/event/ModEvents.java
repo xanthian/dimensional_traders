@@ -1,17 +1,14 @@
 package xanthian.dimensional_traders.event;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.world.item.alchemy.Potions;
-
-import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
 import xanthian.dimensional_traders.Initialise;
 import xanthian.dimensional_traders.entity.ModVillagers;
 import xanthian.dimensional_traders.util.ModTradeOffers;
@@ -159,7 +156,7 @@ public class ModEvents {
         }
 
         if (event.getType() == ModVillagers.END_TRADER.get()) {
-                Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
+            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
 
             // Novice
             trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
@@ -194,7 +191,7 @@ public class ModEvents {
                     3, 4, 0.02f));
 
             trades.get(2).add((pTrader, pRandom) -> new ModTradeOffers.SellPotionsFactory(
-                    Potions.STRONG_HEALING, 5,4,0.02f).getOffer(pTrader, pRandom));
+                    Potions.STRONG_HEALING, 5, 4, 0.02f).getOffer(pTrader, pRandom));
 
             trades.get(2).add((pTrader, pRandom) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 3),

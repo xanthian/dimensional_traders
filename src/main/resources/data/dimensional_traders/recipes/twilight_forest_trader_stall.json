@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "twilightforest:nagastone"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "R": {
+      "item": "minecraft:lime_carpet"
+    },
+    "T": {
+      "item": "twilightforest:mazestone"
+    }
+  },
+  "pattern": [
+    " R ",
+    "ETE",
+    "BBB"
+  ],
+  "result": {
+    "item": "dimensional_traders:twilight_forest_trader_stall"
+  },
+  "show_notification": true
+}
