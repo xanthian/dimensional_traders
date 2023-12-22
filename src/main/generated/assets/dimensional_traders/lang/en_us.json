@@ -1,4 +1,8 @@
 {
   "block.dimensional_traders.end_trader_stall": "End Trading Stall",
-  "block.dimensional_traders.nether_trader_stall": "Nether Trading Stall"
+  "block.dimensional_traders.nether_trader_stall": "Nether Trading Stall",
+  "entity.minecraft.villager.dimensional_traders.nether_trader": "Nether Trader",
+  "entity.minecraft.villager.nether_trader": "Nether Trader",
+  "entity.minecraft.villager.dimensional_traders.end_trader": "End Trader",
+  "entity.minecraft.villager.end_trader": "End Trader"
 }
