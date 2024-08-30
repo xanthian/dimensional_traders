@@ -19,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class TraderBlock extends Block {
 
-
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
 
@@ -55,11 +54,12 @@ public class TraderBlock extends Block {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient && player.isCreative()) {
             TraderBlock.onBreakInCreative(world, pos, state, player);
         }
         super.onBreak(world, pos, state, player);
+        return state;
     }
 
     protected static void onBreakInCreative(World world, BlockPos pos, BlockState state, PlayerEntity player) {

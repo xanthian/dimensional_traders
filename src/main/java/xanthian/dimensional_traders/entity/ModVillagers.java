@@ -4,7 +4,8 @@ import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 
-import net.minecraft.block.Blocks;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potions;
@@ -16,6 +17,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
+import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 
@@ -25,13 +27,13 @@ import xanthian.dimensional_traders.util.ModTradeOffers;
 
 public class ModVillagers {
 
-    public static final Identifier NETHER_TRADER_ID = new Identifier(Initialise.MOD_ID, "nether_trader");
+    public static final Identifier NETHER_TRADER_ID = Identifier.of(Initialise.MOD_ID, "nether_trader");
 
     public static final PointOfInterestType NETHER_TRADER_POI = PointOfInterestHelper.register(
             NETHER_TRADER_ID, 1, 1, ModBlocks.NETHER_TRADER_STALL
     );
 
-    public static final Identifier END_TRADER_ID = new Identifier(Initialise.MOD_ID, "end_trader");
+    public static final Identifier END_TRADER_ID = Identifier.of(Initialise.MOD_ID, "end_trader");
 
     public static final PointOfInterestType END_TRADER_POI = PointOfInterestHelper.register(
             END_TRADER_ID, 1, 1, ModBlocks.END_TRADER_STALL
@@ -64,7 +66,7 @@ public class ModVillagers {
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
                             // Buy
-                            new ItemStack(Items.ROTTEN_FLESH, 32),
+                            new TradedItem(Items.ROTTEN_FLESH, 32),
                             // Sell
                             new ItemStack(Items.EMERALD, 1),
                             3, 1, 0.02f
@@ -74,7 +76,7 @@ public class ModVillagers {
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
                             // Buy
-                            new ItemStack(Items.NETHERRACK, 20),
+                            new TradedItem(Items.NETHERRACK, 20),
                             // Sell
                             new ItemStack(Items.EMERALD, 1),
                             3, 1, 0.02f
@@ -83,7 +85,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 1,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.BASALT, 18),
+                            new TradedItem(Items.BASALT, 18),
                             new ItemStack(Items.EMERALD, 1),
                             3, 1, 0.02f
                     )));
@@ -91,7 +93,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 1,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.BLACKSTONE, 16),
+                            new TradedItem(Items.BLACKSTONE, 16),
                             new ItemStack(Items.EMERALD, 1),
                             3, 1, 0.02f
                     )));
@@ -99,7 +101,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 1,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 1),
+                            new TradedItem(Items.EMERALD, 1),
                             new ItemStack(Items.MAGMA_CREAM, 3),
                             3, 1, 0.02f
                     )));
@@ -109,41 +111,41 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.SOUL_SAND, 1),
-                            3, 4, 0.02f
+                            3, 3, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.SOUL_SOIL, 1),
-                            3, 4, 0.02f
+                            3, 3, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 10),
+                            new TradedItem(Items.EMERALD, 10),
                             new ItemStack(Items.BLAZE_POWDER, 1),
-                            3, 4, 0.02f
+                            3, 3, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 3),
+                            new TradedItem(Items.EMERALD, 3),
                             new ItemStack(Items.SHROOMLIGHT, 1),
-                            3, 4, 0.02f
+                            3, 3, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 3),
+                            new TradedItem(Items.EMERALD, 3),
                             new ItemStack(Items.MAGMA_BLOCK, 1),
-                            3, 4, 0.02f
+                            3, 3, 0.02f
                     )));
                 });
 
@@ -151,41 +153,41 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 2),
+                            new TradedItem(Items.EMERALD, 2),
                             new ItemStack(Items.CRIMSON_FUNGUS, 5),
-                            3, 9, 0.02f
+                            3, 6, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 1),
+                            new TradedItem(Items.EMERALD, 1),
                             new ItemStack(Items.BROWN_MUSHROOM, 2),
-                            3, 9, 0.02f
+                            3, 6, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 2),
+                            new TradedItem(Items.EMERALD, 2),
                             new ItemStack(Items.WARPED_FUNGUS, 5),
-                            3, 9, 0.02f
+                            3, 6, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 32),
+                            new TradedItem(Items.EMERALD, 32),
                             new ItemStack(Items.RED_NETHER_BRICKS, 10),
-                            3, 9, 0.02f
+                            3, 6, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 2),
+                            new TradedItem(Items.EMERALD, 2),
                             new ItemStack(Items.QUARTZ, 5),
-                            5, 8, 0.02f
+                            5, 4, 0.02f
                     )));
                 });
 
@@ -193,41 +195,41 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 48),
+                            new TradedItem(Items.EMERALD, 48),
                             new ItemStack(Items.GHAST_TEAR, 1),
-                            3, 14, 0.02f
+                            3, 12, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.BONE_BLOCK, 1),
-                            3, 14, 0.02f
+                            3, 12, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.CRYING_OBSIDIAN, 1),
-                            3, 14, 0.02f
+                            3, 12, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 1),
+                            new TradedItem(Items.EMERALD, 1),
                             new ItemStack(Items.NETHER_WART_BLOCK, 1),
-                            3, 14, 0.02f
+                            3, 12, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 1),
+                            new TradedItem(Items.EMERALD, 1),
                             new ItemStack(Items.WARPED_WART_BLOCK, 1),
-                            3, 14, 0.02f
+                            3, 12, 0.02f
                     )));
                 });
 
@@ -235,23 +237,23 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD_BLOCK, 12),
+                            new TradedItem(Items.EMERALD_BLOCK, 12),
                             new ItemStack(Items.ANCIENT_DEBRIS, 1),
-                            1, 15, 0.02f
+                            1, 1, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD_BLOCK, 6),
+                            new TradedItem(Items.EMERALD_BLOCK, 6),
                             new ItemStack(Items.WITHER_SKELETON_SKULL, 1),
-                            1, 15, 0.02f
+                            1, 1, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 12),
+                            new TradedItem(Items.EMERALD, 12),
                             new ItemStack(Items.GILDED_BLACKSTONE, 3),
                             5, 1, 0.02f
                     )));
@@ -259,7 +261,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 16),
+                            new TradedItem(Items.EMERALD, 16),
                             new ItemStack(Items.BLAZE_ROD, 1),
                             5, 1, 0.02f
                     )));
@@ -267,7 +269,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(NETHER_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 64),
+                            new TradedItem(Items.EMERALD, 64),
                             new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 1),
                             1, 1, 0.02f
                     )));
@@ -279,7 +281,7 @@ public class ModVillagers {
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
                             // Buy
-                            new ItemStack(Items.END_STONE, 20),
+                            new TradedItem(Items.END_STONE, 20),
                             // Sell
                             new ItemStack(Items.EMERALD, 1),
                             3, 1, 0.02f
@@ -288,7 +290,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 1,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.OBSIDIAN, 1),
                             3, 1, 0.02f
                     )));
@@ -296,7 +298,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 1,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 2),
+                            new TradedItem(Items.EMERALD, 2),
                             new ItemStack(Items.CHORUS_FRUIT, 5),
                             3, 1, 0.02f
                     )));
@@ -304,7 +306,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 1,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.OBSIDIAN, 5),
+                            new TradedItem(Items.OBSIDIAN, 5),
                             new ItemStack(Items.EMERALD, 1),
                             3, 1, 0.02f
                     )));
@@ -312,7 +314,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 1,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 1),
+                            new TradedItem(Items.EMERALD, 1),
                             new ItemStack(Items.IRON_BARS, 5),
                             3, 1, 0.02f
                     )));
@@ -322,30 +324,38 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.MAGENTA_STAINED_GLASS, 2),
-                            3, 4, 0.02f
+                            3, 3, 0.02f
+                    )));
+                });
+        TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 2,
+                factories -> {
+                    factories.add(((entity, random) -> new TradeOffer(
+                            new TradedItem(Items.POTION).withComponents(builder -> builder.add(DataComponentTypes.POTION_CONTENTS, new PotionContentsComponent(Potions.STRONG_HEALING))),
+                            new ItemStack(Items.END_ROD, 1),
+                            3, 3, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new ModTradeOffers.SellPotionsFactory(
-                            Potions.STRONG_HEALING, 5,4,0.02f).create(entity, random)));
+                            Potions.STRONG_HEALING.value(), 5,5,0.02f).create(entity, random)));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 3),
+                            new TradedItem(Items.EMERALD, 3),
                             new ItemStack(Items.END_ROD, 1),
-                            3, 4, 0.02f
+                            3, 3, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 2,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.ENDER_EYE, 1),
+                            new TradedItem(Items.ENDER_EYE, 1),
                             new ItemStack(Items.EMERALD, 1),
-                            3, 4, 0.02f
+                            3, 3, 0.02f
                     )));
                 });
 
@@ -353,33 +363,33 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.DIAMOND, 1),
-                            3, 9, 0.02f
+                            3, 6, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 2),
+                            new TradedItem(Items.EMERALD, 2),
                             new ItemStack(Items.END_STONE_BRICKS, 5),
-                            5, 9, 0.02f
+                            5, 4, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 2),
+                            new TradedItem(Items.EMERALD, 2),
                             new ItemStack(Items.POPPED_CHORUS_FRUIT, 5),
-                            3, 9, 0.02f
+                            3, 6, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 3,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.ENDER_PEARL, 1),
-                            7, 10, 0.02f
+                            7, 3, 0.02f
                     )));
                 });
 
@@ -392,33 +402,33 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.CHORUS_FLOWER, 1),
-                            5, 14, 0.02f
+                            5, 7, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 5),
+                            new TradedItem(Items.EMERALD, 5),
                             new ItemStack(Items.DRAGON_BREATH, 1),
-                            5, 14, 0.02f
+                            5, 7, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 1),
+                            new TradedItem(Items.EMERALD, 1),
                             new ItemStack(Items.PURPUR_PILLAR, 1),
-                            5, 14, 0.02f
+                            5, 7, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 4,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 48),
+                            new TradedItem(Items.EMERALD, 48),
                             new ItemStack(Items.ENDER_CHEST, 1),
-                            3, 14, 0.02f
+                            3, 12, 0.02f
                     )));
                 });
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 4, factories -> {
@@ -431,7 +441,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD_BLOCK, 64),
+                            new TradedItem(Items.EMERALD_BLOCK, 64),
                             new ItemStack(Items.ELYTRA, 1),
                             1, 1, 0.02f
                     )));
@@ -439,7 +449,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 32),
+                            new TradedItem(Items.EMERALD, 32),
                             new ItemStack(Items.END_CRYSTAL, 1),
                             3, 1, 0.02f
                     )));
@@ -447,7 +457,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 50),
+                            new TradedItem(Items.EMERALD, 50),
                             new ItemStack(Items.PURPUR_BLOCK, 32),
                             5, 1, 0.02f
                     )));
@@ -455,7 +465,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD_BLOCK, 32),
+                            new TradedItem(Items.EMERALD_BLOCK, 32),
                             new ItemStack(Items.SHULKER_BOX, 1),
                             1, 1, 0.02f
                     )));
@@ -463,7 +473,7 @@ public class ModVillagers {
         TradeOfferHelper.registerVillagerOffers(END_TRADER_PROFESSION, 5,
                 factories -> {
                     factories.add(((entity, random) -> new TradeOffer(
-                            new ItemStack(Items.EMERALD, 64),
+                            new TradedItem(Items.EMERALD, 64),
                             new ItemStack(Items.SHULKER_SHELL, 1),
                             1, 1, 0.02f
                     )));

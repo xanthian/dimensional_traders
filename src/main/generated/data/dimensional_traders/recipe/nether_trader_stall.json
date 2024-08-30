@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "minecraft:end_stone"
+      "item": "minecraft:netherrack"
     },
     "E": {
       "item": "minecraft:emerald"
     },
     "R": {
-      "item": "minecraft:magenta_carpet"
+      "item": "minecraft:cyan_carpet"
     },
     "T": {
-      "item": "minecraft:obsidian"
+      "item": "minecraft:blackstone"
     }
   },
   "pattern": [
@@ -21,7 +21,7 @@
     "BBB"
   ],
   "result": {
-    "item": "dimensional_traders:end_trader_stall"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "dimensional_traders:nether_trader_stall"
+  }
 }

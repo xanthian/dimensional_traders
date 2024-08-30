@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:end_stone"
-            ]
+            "items": "minecraft:end_stone"
           }
         ]
       },
@@ -23,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:obsidian"
-            ]
+            "items": "minecraft:obsidian"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_base_block",
-      "has_top_slab",
-      "has_the_recipe"
+      "has_top_slab"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:end_trader_stall"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

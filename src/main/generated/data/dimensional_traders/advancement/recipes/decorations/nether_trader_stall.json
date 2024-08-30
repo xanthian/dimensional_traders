@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:netherrack"
-            ]
+            "items": "minecraft:netherrack"
           }
         ]
       },
@@ -23,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:blackstone"
-            ]
+            "items": "minecraft:blackstone"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_base_block",
-      "has_top_slab",
-      "has_the_recipe"
+      "has_top_slab"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:nether_trader_stall"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

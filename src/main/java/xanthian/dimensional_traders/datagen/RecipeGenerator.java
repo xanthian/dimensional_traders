@@ -10,13 +10,16 @@ import net.minecraft.data.server.recipe.VanillaRecipeProvider;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
 import xanthian.dimensional_traders.block.ModBlocks;
 
+import java.util.concurrent.CompletableFuture;
+
 public class RecipeGenerator extends FabricRecipeProvider {
-    public RecipeGenerator(FabricDataOutput output) {
-        super(output);
+    public RecipeGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        super(output, registriesFuture);
     }
 
     @Override
@@ -28,9 +31,15 @@ public class RecipeGenerator extends FabricRecipeProvider {
 
         public static void offerTraderStationRecipe(RecipeExporter exporter, ItemConvertible station, ItemConvertible baseblock, ItemConvertible topblock,ItemConvertible roof) {
             ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, station, 1)
-                    .input('B', baseblock).input('T', topblock).input('R', roof).input('E', Items.EMERALD)
-                    .pattern(" R ").pattern("ETE").pattern("BBB")
-                    .criterion("has_base_block", VanillaRecipeProvider.conditionsFromItem(baseblock)).criterion("has_top_slab", VanillaRecipeProvider.conditionsFromItem(topblock))
-                    .offerTo(exporter, new Identifier(FabricRecipeProvider.getRecipeName(station)));
+                    .input('B', baseblock)
+                    .input('T', topblock)
+                    .input('R', roof)
+                    .input('E', Items.EMERALD)
+                    .pattern(" R ")
+                    .pattern("ETE")
+                    .pattern("BBB")
+                    .criterion("has_base_block", VanillaRecipeProvider.conditionsFromItem(baseblock))
+                    .criterion("has_top_slab", VanillaRecipeProvider.conditionsFromItem(topblock))
+                    .offerTo(exporter, Identifier.of(FabricRecipeProvider.getRecipeName(station)));
     }
 }

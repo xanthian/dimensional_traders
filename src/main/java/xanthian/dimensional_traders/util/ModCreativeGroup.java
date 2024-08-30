@@ -16,7 +16,7 @@ import xanthian.dimensional_traders.block.ModBlocks;
 public class ModCreativeGroup {
 
     public static final ItemGroup ITEM_GROUP = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(Initialise.MOD_ID, "dimensional_traders"),
+            Identifier.of(Initialise.MOD_ID, "dimensional_traders"),
 
             FabricItemGroup.builder()
                     .displayName(Text.translatable("Dimensional Traders"))
